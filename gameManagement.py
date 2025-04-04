@@ -44,7 +44,8 @@ class GameManagement():
         self.mode = self.MODE_START
         self.end_state = 0
 
-        #menu music
+        #reset sounds and music
+        mixer.stop()
         mixer.music.load('audio/music.mp3')
         mixer.music.set_volume(0.3)
         mixer.music.play(-1, 0.0, 5000)
@@ -65,6 +66,9 @@ class GameManagement():
         self.helicopter_fx = self.load_sound('audio/helicopter.mp3', 0.3)
         self.truck_fx = self.load_sound('audio/truck.mp3', 0.2)
         self.refuel_fx = self.load_sound('audio/refuel.mp3', 1)
+        self.load_fx = self.load_sound('audio/load.mp3', 1)
+        self.unload_fx = self.load_sound('audio/unload.mp3', 0.3)
+        self.ore_stolen_fx = self.load_sound('audio/evil_laugh.mp3', 0.5)
 
     def load_sound(self, path, volume):
         sound = mixer.Sound(path)
@@ -148,7 +152,7 @@ class GameManagement():
         
         #create game objects
         self.starting_point = StartingPoint.__new__(StartingPoint)
-        self.starting_point.__init__((0.09375 * self.screen_w), (0.75 * self.screen_h), self.starting_point_img_list, self.screen, self.font, self.starting_amount_ore)
+        self.starting_point.__init__((0.09375 * self.screen_w), (0.75 * self.screen_h), self.starting_point_img_list, self.screen, self.font, self.load_fx, self.starting_amount_ore)
 
         self.end_point = EndPoint.__new__(EndPoint)
         self.end_point.__init__((0.92 * self.screen_w), (0.2 * self.screen_h), [self.end_point_img], self.screen, self.font)
@@ -248,6 +252,7 @@ class GameManagement():
         #reset states
         self.truck.set_is_collecting(False)
         self.truck.set_is_refueling(False)
+        self.starting_point.set_is_loading(False)
         self.gas_station.set_is_refueling(False)
         #collision with gas station
         if (self.truck.get_rect().colliderect(self.gas_station.get_rect())):
@@ -259,14 +264,18 @@ class GameManagement():
             if (self.truck.get_current_ore() < self.truck.get_capacity()):
                 amountOre = self.starting_point.collect_ore(int(self.truck.get_capacity() * 0.2))
                 self.truck.collect_ore(amountOre)
+                self.starting_point.set_is_loading(True)
         #collision with end point
         if (self.truck.get_rect().colliderect(self.end_point.get_rect())):
-            self.end_point.deposit_ore(self.truck.get_current_ore())
-            self.truck.reset_ore()
+            if (self.truck.get_current_ore() > 0):
+                self.end_point.deposit_ore(self.truck.get_current_ore())
+                self.truck.reset_ore()
+                self.unload_fx.play()
         #collision with helicopter
         if (self.helicopter.get_rect().colliderect(self.truck.get_rect())):
             stolen_ore = self.truck.reset_ore()
             self.helicopter.steal_ore(stolen_ore)
+            self.ore_stolen_fx.play()
 
     #check goal and update game state
     def check_goal(self):
@@ -323,7 +332,7 @@ class GameManagement():
                         if (self.start_button.get_rect().collidepoint(event.pos)):
                             if (self.check_inputs()):
                                 self.set_input_data()
-                                pygame.mixer.music.stop()
+                                mixer.music.stop()
                                 self.mode = self.MODE_RUNNING  
                     #keyboard pressed
                     if event.type == pygame.KEYDOWN:

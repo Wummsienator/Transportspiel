@@ -3,19 +3,20 @@ from gameObject import GameObject
 
 class StartingPoint(GameObject):
     #initialize object
-    def __init__(self, x, y, imageList, screen, font, amountOre):
+    def __init__(self, x, y, imageList, screen, font, sound, amountOre):
         super().__init__(x, y, imageList, screen, font)
+        self.sound = sound
         self.amountOre = amountOre
         self.animationCooldown = 15
         self.collect_cooldown = 0
+        self.is_loading = False
+        self.sound_playing = False
 
     def set_amount_ore(self, amountOre):
         self.amountOre = amountOre
 
     #implementation of abstract update method
     def update(self):
-        #cooldown for next animation step
-        self.animationCooldown -= 1
         if (self.animationCooldown == 0):
             #update image for next animation step
             self.image_counter += 1
@@ -25,6 +26,19 @@ class StartingPoint(GameObject):
             else:
                 self.animationCooldown = 15
             self.current_image = self.imageList[self.image_counter]
+        else:
+            #cooldown for next animation step
+            self.animationCooldown -= 1
+
+        #play sound effect
+        if (self.is_loading):
+            if not(self.sound_playing):
+                self.sound.play(loops=-1, maxtime=0)
+                self.sound_playing = True
+        else:
+            if (self.sound_playing):
+                self.sound.stop()
+                self.sound_playing = False
 
     #implementation of abstract draw method
     def draw(self):
@@ -46,3 +60,6 @@ class StartingPoint(GameObject):
         else:
             self.collect_cooldown -= 1
             return 0
+        
+    def set_is_loading(self, value):
+        self.is_loading = value
