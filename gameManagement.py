@@ -16,7 +16,17 @@ class GameManagement():
     MODE_END = 'END'
 
     #initialize object
-    def __init__(self, screen):
+    def __init__(self):
+        mixer.init()
+        pygame.init()
+
+        display_info = pygame.display.Info()
+        SCREEN_WIDTH = display_info.current_w
+        SCREEN_HEIGHT = display_info.current_h
+
+        screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        pygame.display.set_caption('The TransportGame')
+
         self.screen = screen
         self.screen_w = screen.get_width()
         self.screen_h = screen.get_height()
@@ -35,6 +45,8 @@ class GameManagement():
         self.init_game_variables()
         self.load_sounds()
         self.load_images()
+        #call after resources are loaded
+        self.initialize_objects()
 
     #reset game variables, objects and state
     def restart_game(self):
@@ -118,53 +130,40 @@ class GameManagement():
 
     def initialize_objects(self):
         #create ui elements
-        self.start_button = Button.__new__(Button)
-        self.start_button.__init__(self.screen.get_width() / 2, (0.8 * self.screen_h), self.start_button_img, self.screen)
+        self.start_button = Button(self.screen.get_width() / 2, (0.8 * self.screen_h), self.start_button_img, self.screen)
 
-        self.restart_button = Button.__new__(Button)
-        self.restart_button.__init__(self.screen.get_width() / 2, (0.8 * self.screen_h), self.restart_button_img, self.screen)
+        self.restart_button = Button(self.screen.get_width() / 2, (0.8 * self.screen_h), self.restart_button_img, self.screen)
 
         self.input_field_list = []
 
-        self.input_capacity_truck = InputField.__new__(InputField)
-        self.input_capacity_truck.__init__(self.screen.get_width() / 2, (0.45 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Capacity",str(self.capacity_truck))
+        self.input_capacity_truck = InputField(self.screen.get_width() / 2, (0.45 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Capacity",str(self.capacity_truck))
         self.input_field_list.append(self.input_capacity_truck)
 
-        self.input_consumption_truck = InputField.__new__(InputField)
-        self.input_consumption_truck.__init__(self.screen.get_width() / 2, (0.5 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Consumption",str(self.consumption_truck))
+        self.input_consumption_truck = InputField(self.screen.get_width() / 2, (0.5 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Consumption",str(self.consumption_truck))
         self.input_field_list.append(self.input_consumption_truck)
 
-        self.input_starting_ore = InputField.__new__(InputField)
-        self.input_starting_ore.__init__(self.screen.get_width() / 2, (0.55 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Starting Ore", str(self.starting_amount_ore))
+        self.input_starting_ore = InputField(self.screen.get_width() / 2, (0.55 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Starting Ore", str(self.starting_amount_ore))
         self.input_field_list.append(self.input_starting_ore)
 
-        self.input_speed_truck = InputField.__new__(InputField)
-        self.input_speed_truck.__init__(self.screen.get_width() / 2, (0.6 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Speed Truck", str(self.speed_truck))
+        self.input_speed_truck = InputField(self.screen.get_width() / 2, (0.6 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Speed Truck", str(self.speed_truck))
         self.input_field_list.append(self.input_speed_truck)
 
-        self.input_speed_helicopter = InputField.__new__(InputField)
-        self.input_speed_helicopter.__init__(self.screen.get_width() / 2, (0.65 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Speed Helicopter", str(self.speed_helicopter))
+        self.input_speed_helicopter = InputField(self.screen.get_width() / 2, (0.65 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Speed Helicopter", str(self.speed_helicopter))
         self.input_field_list.append(self.input_speed_helicopter)
 
-        self.input_win_percent = InputField.__new__(InputField)
-        self.input_win_percent.__init__(self.screen.get_width() / 2, (0.7 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Win Percent", str(self.win_percent))
+        self.input_win_percent = InputField(self.screen.get_width() / 2, (0.7 * self.screen_h), (200 * self.scaling), (32 * self.scaling), 16, self.screen, self.font, "Win Percent", str(self.win_percent))
         self.input_field_list.append(self.input_win_percent)
         
         #create game objects
-        self.starting_point = StartingPoint.__new__(StartingPoint)
-        self.starting_point.__init__((0.09375 * self.screen_w), (0.75 * self.screen_h), self.starting_point_img_list, self.screen, self.font, self.load_fx, self.starting_amount_ore)
+        self.starting_point = StartingPoint((0.09375 * self.screen_w), (0.75 * self.screen_h), self.starting_point_img_list, self.screen, self.font, self.load_fx, self.starting_amount_ore)
 
-        self.end_point = EndPoint.__new__(EndPoint)
-        self.end_point.__init__((0.92 * self.screen_w), (0.2 * self.screen_h), [self.end_point_img], self.screen, self.font)
+        self.end_point = EndPoint((0.92 * self.screen_w), (0.2 * self.screen_h), [self.end_point_img], self.screen, self.font)
 
-        self.gas_station = GasStation.__new__(GasStation)
-        self.gas_station.__init__((0.92 * self.screen_w), (0.86 * self.screen_h), [self.gas_station_img], self.screen, self.font, self.refuel_fx)
+        self.gas_station = GasStation((0.92 * self.screen_w), (0.86 * self.screen_h), [self.gas_station_img], self.screen, self.font, self.refuel_fx)
 
-        self.truck = Truck.__new__(Truck)
-        self.truck.__init__((0.125 * self.screen_w), (0.33 * self.screen_h), [self.truck_img], self.screen, self.font, self.truck_fx, self.speed_truck, self.capacity_truck, self.max_fuel_truck, self.consumption_truck)
+        self.truck = Truck((0.125 * self.screen_w), (0.33 * self.screen_h), [self.truck_img], self.screen, self.font, self.truck_fx, self.speed_truck, self.capacity_truck, self.max_fuel_truck, self.consumption_truck)
 
-        self.helicopter = Helicopter.__new__(Helicopter)
-        self.helicopter.__init__((0.25 * self.screen_w), (0.66 * self.screen_h), [self.helicopter_img, self.helicopter_rotor_img], self.screen, self.font, self.helicopter_fx, self.speed_helicopter, self.truck)
+        self.helicopter = Helicopter((0.25 * self.screen_w), (0.66 * self.screen_h), [self.helicopter_img, self.helicopter_rotor_img], self.screen, self.font, self.helicopter_fx, self.speed_helicopter, self.truck)
 
     #ui element methods
     def draw_bg(self):
