@@ -203,13 +203,13 @@ class GameManagement():
 
     def draw_counter(self, truck):
         #fuel counter
-        fuel_counter_txt = self.font.render(("Fuel: " + str(truck.get_current_fuel())), 1, pygame.Color("RED"))
+        fuel_counter_txt = self.font.render(("Fuel: " + str(truck.get_current_fuel())), 1, pygame.Color("WHITE"))
         self.screen.blit(fuel_counter_txt, (0, 0))
         #ore counter
-        ore_counter_txt = self.font.render(("Current Ore: " + str(truck.get_current_ore())), 1, pygame.Color("RED"))
+        ore_counter_txt = self.font.render(("Current Ore: " + str(truck.get_current_ore())), 1, pygame.Color("WHITE"))
         self.screen.blit(ore_counter_txt, (0, self.scaling * 15))
         #win counter
-        win_counter_txt = self.font.render(("Goal: " + str(self.end_point.get_amount_ore()) + '/' + str(self.win_percent * self.starting_amount_ore // 100)), 1, pygame.Color("RED"))
+        win_counter_txt = self.font.render(("Goal: " + str(self.end_point.get_amount_ore()) + '/' + str(self.win_percent * self.starting_amount_ore // 100)), 1, pygame.Color("WHITE"))
         self.screen.blit(win_counter_txt, (0, self.scaling * 30))
 
     #check input fields for invalid values
@@ -364,7 +364,7 @@ class GameManagement():
                 elif (self.end_state == 2):
                     text = 'You lost! Ran out of fuel'
                 text_size = self.font.size(text)
-                text_element = self.font.render(text, True, pygame.Color('Red'))
+                text_element = self.font.render(text, True, pygame.Color('WHITE'))
                 self.screen.blit(text_element, ((self.screen_w / 2) - (text_size[0] / 2), self.screen_h / 2))
                 if (self.end_state == 0):
                     self.victory_fx.play()

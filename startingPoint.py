@@ -42,7 +42,7 @@ class StartingPoint(GameObject):
 
     #implementation of abstract draw method
     def draw(self):
-        ore_counter_txt = self.font.render(str(self.amountOre), 1, pygame.Color("RED"))
+        ore_counter_txt = self.font.render(str(self.amountOre), 1, pygame.Color("WHITE"))
         text_width = ore_counter_txt.get_width()
         self.screen.blit(self.current_image, self.rect)
         self.screen.blit(ore_counter_txt, (self.rect.x + (self.width / 2) - (text_width / 2), self.rect.y + self.height))  
