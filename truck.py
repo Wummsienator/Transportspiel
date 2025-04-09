@@ -142,12 +142,13 @@ class Truck(GameObject):
     def set_is_refueling(self, value):
         self.is_refueling = value
     
+    #refuel tank
     def refuel(self):
         if not(self.currentFuel == self.maxFuel):
-            if (self.maxFuel - self.currentFuel < int(0.01 * self.maxFuel)):
+            if (self.maxFuel - self.currentFuel < int(0.05 * self.maxFuel)):
                 self.currentFuel = self.maxFuel
             else:
-                self.currentFuel += int(0.01 * self.maxFuel)
+                self.currentFuel += int(0.05 * self.maxFuel)
     
     #get keyboard imput from game management
     def set_moving(self, direction, moving = True):
