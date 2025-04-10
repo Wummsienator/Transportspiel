@@ -23,5 +23,6 @@ class GasStation(GameObject):
     def draw(self):
         self.screen.blit(self.current_image, self.rect)
 
+    #set refueling status
     def set_is_refueling(self, value):
         self.is_refueling = value

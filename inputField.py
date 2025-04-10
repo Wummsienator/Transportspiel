@@ -26,26 +26,33 @@ class InputField():
         self.screen.blit(label_text, (self.rect.x - self.labelSize[0], self.rect.y+5)) 
         self.screen.blit(text, (self.rect.x+5, self.rect.y+5)) 
 
+    #get sprite rectangle
     def get_rect(self):
         return self.rect
     
+    #set active status
     def set_active(self, value):
         self.active = value
 
+    #toggle backspace
     def toggle_backspace(self):
         self.text = self.text[:-1]
         self.error = False
 
+    #add symbol to input text
     def add_symbol(self, symbol):
         if (len(self.text) <= self.max_length):
             self.text += symbol
             self.error = False
 
+    #return active status
     def get_active(self):
         return self.active
     
+    #return input text
     def get_text(self):
         return self.text
     
+    #toggle error status
     def toggle_error(self):
         self.error = True

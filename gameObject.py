@@ -15,12 +15,15 @@ class GameObject(pygame.sprite.Sprite):
         self.screen = screen
         self.font = font
 
+    #get sprite rectangle
     def get_rect(self):
         return self.rect
     
+    #get sprite width
     def get_width(self):
         return self.width
     
+    #get sprite height
     def get_height(self):
         return self.height
     

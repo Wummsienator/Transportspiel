@@ -12,6 +12,7 @@ class StartingPoint(GameObject):
         self.is_loading = False
         self.sound_playing = False
 
+    #set total amount ore
     def set_amount_ore(self, amountOre):
         self.amountOre = amountOre
 
@@ -60,6 +61,7 @@ class StartingPoint(GameObject):
         else:
             self.collect_cooldown -= 1
             return 0
-        
+    
+    #set laoding status
     def set_is_loading(self, value):
         self.is_loading = value

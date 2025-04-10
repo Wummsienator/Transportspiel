@@ -10,8 +10,10 @@ class EndPoint(GameObject):
     def draw(self):
         self.screen.blit(self.current_image, self.rect)
 
+    #receive ore deposit
     def deposit_ore(self, amount):
         self.amount_ore += amount 
 
+    #return currently stored ore amount
     def get_amount_ore(self):
         return self.amount_ore

@@ -6,6 +6,7 @@ class Button():
         self.rect.center = (x, y)
         self.screen = screen
 
+    #get sprite rectangle
     def get_rect(self):
         return self.rect
     

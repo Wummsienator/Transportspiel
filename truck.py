@@ -23,9 +23,11 @@ class Truck(GameObject):
         self.is_refueling = False
         self.sound_playing = False
 
+    #return alive status
     def get_alive(self):
         return self.alive
     
+    #check alive status
     def check_alive(self):
         if (self.currentFuel <= 0):
             self.currentFuel = 0
@@ -99,46 +101,59 @@ class Truck(GameObject):
     def draw(self):
         self.screen.blit(self.current_image, self.rect)
 
+    #stop all actions
     def kill(self):
         self.alive = False
         self.sound.stop()
         self.sound_playing = False
 
+    #set max capacity
     def set_capacity(self, capacity):
         self.capacity = capacity
 
+    #return max capacity
     def get_capacity(self):
         return self.capacity
     
+    #set consumption
     def set_consumption(self, consumption):
         self.consumption = consumption
 
+    #set speed
     def set_speed(self, speed):
         self.speed = speed
 
+    #collect ore
     def collect_ore(self, amount):
         self.currentOre += amount
 
+    #reset current ore
     def reset_ore(self):
         temp = self.currentOre 
         self.currentOre = 0
         return temp
 
+    #return current ore
     def get_current_ore(self):
         return self.currentOre
     
+    #return current fuel amount
     def get_current_fuel(self):
         return self.currentFuel
     
+    #return loaded stauts
     def get_is_loaded(self):
         return self.currentOre > 0
     
+    #set collecting status
     def set_is_collecting(self, value):
         self.is_collecting = value
 
+    #return collecting status
     def get_is_collecting(self):
         return self.is_collecting
     
+    #ret refuling status
     def set_is_refueling(self, value):
         self.is_refueling = value
     

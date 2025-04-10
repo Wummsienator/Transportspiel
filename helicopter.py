@@ -120,20 +120,25 @@ class Helicopter(GameObject):
         self.screen.blit(self.current_image, self.rect)
         self.screen.blit(self.current_rotor_img, rotor_rect)
 
+    #stop all actions
     def kill(self):
         self.alive = False
         self.sound.stop()
         self.sound_playing = False
 
+    #set speed
     def set_speed(self, speed):
         self.speed = speed
 
+    #steal ore from player
     def steal_ore(self, stolen_ore):
         self.stolen_ore += stolen_ore
         self.chasing = False
 
+    #return total amount of stolen ore
     def get_stolen_ore(self):
         return self.stolen_ore
 
+    #deposit stolen ore
     def deposit_ore(self):
         self.chasing  = True

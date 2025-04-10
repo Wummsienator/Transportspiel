@@ -17,8 +17,9 @@ class GameManagement():
 
     #initialize object
     def __init__(self):
-        mixer.init()
+        #initialize pygame and set dynamic game window size
         pygame.init()
+        mixer.init()
 
         display_info = pygame.display.Info()
         SCREEN_WIDTH = display_info.current_w
@@ -72,6 +73,7 @@ class GameManagement():
         self.speed_helicopter = 5
         self.win_percent = 80
 
+    #load sound files
     def load_sounds(self):
         self.victory_fx = self.load_sound('audio/victory.mp3', 0.3)
         self.lose_fx = self.load_sound('audio/game_over.mp3', 0.3)
@@ -87,6 +89,7 @@ class GameManagement():
         sound.set_volume(volume)
         return sound
     
+    #load image files
     def load_images(self):
         #background
         banner_img = pygame.image.load('img/Background/banner2.png').convert_alpha()
@@ -128,6 +131,7 @@ class GameManagement():
         helicopter_rotor_img = helicopter_assets.subsurface((132, 99, 96, 99))
         self.helicopter_rotor_img = pygame.transform.scale_by(helicopter_rotor_img, self.scaling)
 
+    #initialize imported objects
     def initialize_objects(self):
         #create ui elements
         self.start_button = Button(self.screen.get_width() / 2, (0.8 * self.screen_h), self.start_button_img, self.screen)
@@ -165,7 +169,7 @@ class GameManagement():
 
         self.helicopter = Helicopter((0.25 * self.screen_w), (0.66 * self.screen_h), [self.helicopter_img, self.helicopter_rotor_img], self.screen, self.font, self.helicopter_fx, self.speed_helicopter, self.truck)
 
-    #ui element methods
+    #draw background dynamically
     def draw_bg(self):
         if (self.mode == self.MODE_START):
             self.screen.blit(self.banner_img, (0, 0))
@@ -200,6 +204,7 @@ class GameManagement():
                 for x in range(0, count_x + 1):
                     self.screen.blit(self.ground1_img, (width * x, width * y))
 
+    #draw game counter
     def draw_counter(self, truck):
         #fuel counter
         fuel_counter_txt = self.font.render(("Fuel: " + str(truck.get_current_fuel())), 1, pygame.Color("WHITE"))
@@ -298,6 +303,7 @@ class GameManagement():
         self.refuel_fx.stop()
         self.refuel_sound_playing = False
         
+    #game loop
     def run(self):
         #music and sounds
         mixer.music.load('audio/music.mp3')
