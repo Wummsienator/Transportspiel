@@ -109,7 +109,7 @@ class GameManagement():
         #objects
         self.starting_point_img_list = []
         for i in range(1,24):
-            starting_point_img = pygame.image.load(f'img/mine/work/45/{i}.png').convert_alpha().subsurface((20, 120, 260, 190))
+            starting_point_img = pygame.image.load(f'img/mine/{i}.png').convert_alpha().subsurface((20, 120, 260, 190))
             self.starting_point_img_list.append(pygame.transform.scale_by(starting_point_img, self.scaling))
 
         end_point_img = pygame.image.load('img/warehouse.png').convert_alpha()
