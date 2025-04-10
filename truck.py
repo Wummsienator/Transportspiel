@@ -153,7 +153,7 @@ class Truck(GameObject):
     def get_is_collecting(self):
         return self.is_collecting
     
-    #ret refuling status
+    #get refuling status
     def set_is_refueling(self, value):
         self.is_refueling = value
     
