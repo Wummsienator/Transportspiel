@@ -2,8 +2,8 @@ from gameObject import GameObject
 
 class GasStation(GameObject):
     #initialize object
-    def __init__(self, x, y, imageList, screen, font, sound):
-        super().__init__(x, y, imageList, screen, font)
+    def __init__(self, x, y, image_list, screen, font, sound):
+        super().__init__(x, y, image_list, screen, font)
         self.sound = sound
         self.is_refueling = False
         self.sound_playing = False

@@ -2,7 +2,7 @@ import pygame
 
 class InputField():
     #initialize object
-    def __init__(self, x, y, size_x, size_y, max_length, screen, font, label, initialText):
+    def __init__(self, x, y, size_x, size_y, max_length, screen, font, label, initial_text):
         self.rect = pygame.Rect(200, 200, size_x, size_y) 
         self.rect.center = (x, y)
         self.max_length = max_length
@@ -10,7 +10,7 @@ class InputField():
         self.font = font
         self.label = label + (": ")
         self.labelSize = self.font.size(self.label)
-        self.text = initialText
+        self.text = initial_text
         self.color_active = pygame.Color('lightskyblue3') 
         self.color_passive = pygame.Color('antiquewhite2')
         self.color_error = pygame.Color('Red')

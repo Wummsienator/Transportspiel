@@ -3,11 +3,11 @@ import abc
 
 class GameObject(pygame.sprite.Sprite):
     #initialize object
-    def __init__(self, x, y, imageList, screen, font):
+    def __init__(self, x, y, image_list, screen, font):
         pygame.sprite.Sprite.__init__(self)
-        self.imageList = imageList
+        self.image_list = image_list
         self.image_counter = 0
-        self.current_image = imageList[self.image_counter]
+        self.current_image = image_list[self.image_counter]
         self.rect = self.current_image.get_rect()
         self.rect.center = (x, y)
         self.width = self.current_image.get_width()

@@ -3,12 +3,12 @@ from gameObject import GameObject
 
 class Helicopter(GameObject):
     #initialize object
-    def __init__(self, x, y, imageList, screen, font, sound, speed, truck):
-        super().__init__(x, y, imageList, screen, font)
+    def __init__(self, x, y, image_list, screen, font, sound, speed, truck):
+        super().__init__(x, y, image_list, screen, font)
         self.sound = sound
         self.speed = speed
         self.truck = truck
-        self.current_rotor_img = self.imageList[1]
+        self.current_rotor_img = self.image_list[1]
         self.alive = True
         self.rotor_state = 0
         self.facing_right = True
@@ -80,9 +80,9 @@ class Helicopter(GameObject):
                     if (dx < 0):
                         self.facing_right = False
                 if (self.facing_right):
-                    self.current_image = pygame.transform.rotate(self.imageList[self.image_counter], 180)
+                    self.current_image = pygame.transform.rotate(self.image_list[self.image_counter], 180)
                 else:
-                    self.current_image = self.imageList[self.image_counter]
+                    self.current_image = self.image_list[self.image_counter]
 
                 self.rect.x += dx
                 self.rect.y += dy
@@ -101,10 +101,10 @@ class Helicopter(GameObject):
                 #animate rotor
                 if (self.animation_cooldown == 0):
                     if (self.rotor_state == 0):
-                        self.current_rotor_img = self.imageList[1]
+                        self.current_rotor_img = self.image_list[1]
                         self.rotor_state = 1
                     else:
-                        self.current_rotor_img = pygame.transform.rotate(self.imageList[1], 45)
+                        self.current_rotor_img = pygame.transform.rotate(self.image_list[1], 45)
                         self.rotor_state = 0
                     self.animation_cooldown = 5
                 else:

@@ -3,15 +3,15 @@ from gameObject import GameObject
 
 class Truck(GameObject):
     #initialize object
-    def __init__(self, x, y, imageList, screen, font, sound, speed, capacity, maxFuel, consumption):
-        super().__init__(x, y, imageList, screen, font)
+    def __init__(self, x, y, image_list, screen, font, sound, speed, capacity, max_fuel, consumption):
+        super().__init__(x, y, image_list, screen, font)
         self.sound = sound
         self.alive = True
         self.speed = speed
         self.currentOre = 0
         self.capacity = capacity
-        self.currentFuel = maxFuel
-        self.maxFuel = maxFuel
+        self.currentFuel = max_fuel
+        self.max_fuel = max_fuel
         self.consumption = consumption
         self.consumption_countdown = 10
         self.refuel_cooldown = 20
@@ -43,16 +43,16 @@ class Truck(GameObject):
             old_center = self.rect.center
             if self.moving_left:
                 dx -= self.speed
-                self.current_image = self.imageList[self.image_counter]
+                self.current_image = self.image_list[self.image_counter]
             elif self.moving_right:
                 dx += self.speed
-                self.current_image = pygame.transform.flip(self.imageList[self.image_counter], True, False)
+                self.current_image = pygame.transform.flip(self.image_list[self.image_counter], True, False)
             elif self.moving_up:
                 dy -= self.speed
-                self.current_image = pygame.transform.rotate(self.imageList[self.image_counter], 270)
+                self.current_image = pygame.transform.rotate(self.image_list[self.image_counter], 270)
             elif self.moving_down:
                 dy += self.speed
-                self.current_image = pygame.transform.rotate(self.imageList[self.image_counter], 90)
+                self.current_image = pygame.transform.rotate(self.image_list[self.image_counter], 90)
 
             self.rect = self.current_image.get_rect()
             self.rect.center = old_center
@@ -159,11 +159,11 @@ class Truck(GameObject):
     
     #refuel tank
     def refuel(self):
-        if not(self.currentFuel == self.maxFuel):
-            if (self.maxFuel - self.currentFuel < int(0.05 * self.maxFuel)):
-                self.currentFuel = self.maxFuel
+        if not(self.currentFuel == self.max_fuel):
+            if (self.max_fuel - self.currentFuel < int(0.05 * self.max_fuel)):
+                self.currentFuel = self.max_fuel
             else:
-                self.currentFuel += int(0.05 * self.maxFuel)
+                self.currentFuel += int(0.05 * self.max_fuel)
     
     #get keyboard imput from game management
     def set_moving(self, direction, moving = True):

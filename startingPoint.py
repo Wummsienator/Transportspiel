@@ -3,30 +3,30 @@ from gameObject import GameObject
 
 class StartingPoint(GameObject):
     #initialize object
-    def __init__(self, x, y, imageList, screen, font, sound, amountOre):
-        super().__init__(x, y, imageList, screen, font)
+    def __init__(self, x, y, image_list, screen, font, sound, amount_ore):
+        super().__init__(x, y, image_list, screen, font)
         self.sound = sound
-        self.amountOre = amountOre
+        self.amount_ore = amount_ore
         self.animationCooldown = 15
         self.collect_cooldown = 0
         self.is_loading = False
         self.sound_playing = False
 
     #set total amount ore
-    def set_amount_ore(self, amountOre):
-        self.amountOre = amountOre
+    def set_amount_ore(self, amount_ore):
+        self.amount_ore = amount_ore
 
     #implementation of abstract update method
     def update(self):
         if (self.animationCooldown == 0):
             #update image for next animation step
             self.image_counter += 1
-            if (self.image_counter > len(self.imageList) - 1):
+            if (self.image_counter > len(self.image_list) - 1):
                 self.image_counter = 0
                 self.animationCooldown = 100
             else:
                 self.animationCooldown = 15
-            self.current_image = self.imageList[self.image_counter]
+            self.current_image = self.image_list[self.image_counter]
         else:
             #cooldown for next animation step
             self.animationCooldown -= 1
@@ -43,7 +43,7 @@ class StartingPoint(GameObject):
 
     #implementation of abstract draw method
     def draw(self):
-        ore_counter_txt = self.font.render(str(self.amountOre), 1, pygame.Color("WHITE"))
+        ore_counter_txt = self.font.render(str(self.amount_ore), 1, pygame.Color("WHITE"))
         text_width = ore_counter_txt.get_width()
         self.screen.blit(self.current_image, self.rect)
         self.screen.blit(ore_counter_txt, (self.rect.x + (self.width / 2) - (text_width / 2), self.rect.y + self.height))  
@@ -51,11 +51,11 @@ class StartingPoint(GameObject):
     def collect_ore(self, amount):
         #cooldown for ore collection when truck is standing on starting point
         if (self.collect_cooldown == 0):
-            if (amount < self.amountOre):
-                self.amountOre -= amount
+            if (amount < self.amount_ore):
+                self.amount_ore -= amount
             else:
-                amount = self.amountOre
-                self.amountOre = 0
+                amount = self.amount_ore
+                self.amount_ore = 0
             self.collect_cooldown = 50
             return amount
         else:
