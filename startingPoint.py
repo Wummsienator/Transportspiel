@@ -7,7 +7,7 @@ class StartingPoint(GameObject):
         super().__init__(x, y, image_list, screen, font)
         self.sound = sound
         self.amount_ore = amount_ore
-        self.animationCooldown = 15
+        self.animation_cooldown = 15
         self.collect_cooldown = 0
         self.is_loading = False
         self.sound_playing = False
@@ -18,18 +18,18 @@ class StartingPoint(GameObject):
 
     #implementation of abstract update method
     def update(self):
-        if (self.animationCooldown == 0):
+        if (self.animation_cooldown == 0):
             #update image for next animation step
             self.image_counter += 1
             if (self.image_counter > len(self.image_list) - 1):
                 self.image_counter = 0
-                self.animationCooldown = 100
+                self.animation_cooldown = 100
             else:
-                self.animationCooldown = 15
+                self.animation_cooldown = 15
             self.current_image = self.image_list[self.image_counter]
         else:
             #cooldown for next animation step
-            self.animationCooldown -= 1
+            self.animation_cooldown -= 1
 
         #play sound effect
         if (self.is_loading):
