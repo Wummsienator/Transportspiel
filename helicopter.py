@@ -84,8 +84,12 @@ class Helicopter(GameObject):
                 else:
                     self.current_image = self.image_list[self.image_counter]
 
-                self.rect.x += dx
-                self.rect.y += dy
+                if dx != 0 and dy != 0: #only use half the speed when flying diagonally because the truck can't drive diagonally
+                    self.rect.x += 0.5 * dx
+                    self.rect.y += 0.5 * dy
+                else:
+                    self.rect.x += dx
+                    self.rect.y += dy
 
                 if not(self.sound_playing):
                     self.sound.play(loops=-1, maxtime=0) # Loops indefinitely
